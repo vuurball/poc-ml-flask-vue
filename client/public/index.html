@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>client</title>
+    <style>
+      #menu {
+        background-color: black;
+        min-height: 80px;
+        padding: 20px;
+      }
+      #appname {
+        color: red;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      #appname2 {
+        color: white;
+        font-size: 30px;
+        font-weight: 900;
+      }
+      .menulink {
+        color: white;
+        font-size: 14px;
+        float: right;
+        margin: 0px 10px;
+        padding:10px;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <noscript>
+      <strong>We're sorry but client doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="menu">
+      <span id="appname">Movies</span><span id="appname2">ML</span>
+      <button class="btn btn-warning float-right mr-15">LOGIN</button>
+      <span class="menulink">TRENDING MOVIES</span>
+      <span class="menulink">TOP MOVIES</span>
+       </div>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
