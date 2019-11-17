@@ -32,12 +32,13 @@
         </div>
       </div>
       <div class="row align-items-center justify-content-center ">
-        <div class="card" style="width: 18rem;" v-for="(n,i) in suggested_movies" :key="i.id">
-          <img :src=n.poster class="card-img-top" alt="#">
-          <div class="card-body">
-            <h5 class="card-title">{{ n.name }} ({{ n.year }})</h5>
-          </div>
-        </div>
+        <movie-thumbnail
+          v-for="(n,i) in suggested_movies"
+          :key="i.id"
+          :name="n.name"
+          :year="n.year"
+          :poster="n.poster"
+        ></movie-thumbnail>
       </div>
     </div>
   </div>
@@ -45,9 +46,11 @@
 
 <script>
 import axios from 'axios';
+import MovieThumbnail from './MovieThumbnail.vue';
 
 export default {
   name: 'Movisuggested_movieses',
+  components: { MovieThumbnail },
   data() {
     return {
       movies: '',
