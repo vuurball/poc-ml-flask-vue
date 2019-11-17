@@ -16,11 +16,8 @@
           </span>
         </p>
         <div style="margin:10px 100px;">
-           <span :id=i v-for="(n,i) in movies" v-bind:key="i.id" v-on:click="suggestions($event)">
-            <span class="pill" v-if="i != active_movie">
-              {{n}}
-            </span>
-            <span class="pill is-selected" v-else>
+           <span :id=i v-for="(n,i) in movies" :key="i.id" @click="suggestions($event)">
+            <span class="pill" :class="[i == active_movie ? 'is-selected' : '']">
               {{n}}
             </span>
           </span>
@@ -35,7 +32,7 @@
         </div>
       </div>
       <div class="row align-items-center justify-content-center ">
-        <div class="card" style="width: 18rem;" v-for="(n,i) in suggested_movies" v-bind:key="i.id">
+        <div class="card" style="width: 18rem;" v-for="(n,i) in suggested_movies" :key="i.id">
           <img :src=n.poster class="card-img-top" alt="#">
           <div class="card-body">
             <h5 class="card-title">{{ n.name }} ({{ n.year }})</h5>
