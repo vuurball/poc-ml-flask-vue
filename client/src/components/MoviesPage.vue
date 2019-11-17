@@ -1,85 +1,61 @@
 <template>
   <div>
-    <div class="row align-items-center justify-content-center bg-light">
-      <div class="container">
-        <p style="text-align: center;">
-          <span class="text-highlight">
-            <strong>
-              <span style="font-size: 12px;">* * *&nbsp;<span style="font-size: 16px;">☞</span>
-              &nbsp;
-              <span style="font-family: Montserrat;">TRANDING MOVIES</span>
-              &nbsp;
-              <span style="font-size: 16px;">☜</span>
-              &nbsp;* * *
-              </span>
-            </strong>
-          </span>
-        </p>
-        <div style="margin:10px 100px;">
-          <span v-for="(n,i) in movies" :key="i.id" @click="suggestions(i)">
-            <span class="pill" :class="[i == active_movie ? 'is-selected' : '']">
-              {{n}}
-            </span>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="row align-items-center justify-content-center bg-dark">
-      <div class="container">
-        <div class="ff-header">
-          <h1>RECOMMENDED FOR YOU</h1>
-          <h2>Similar movies you might like →</h2>
-        </div>
-      </div>
-      <div class="row align-items-center justify-content-center ">
-        <movie-thumbnail
-          v-for="(n,i) in suggested_movies"
-          :key="i.id"
-          :name="n.name"
-          :year="n.year"
-          :poster="n.poster"
-        ></movie-thumbnail>
-      </div>
-    </div>
+    <!-- first section -->
+    <tranding-movies
+      :movies=movies
+      :active_movie=active_movie
+      v-on:movie-selected="selectActiveMovie($event)"
+    ></tranding-movies>
+    <!-- second section -->
+    <recommended-movies
+      :suggested_movies=suggested_movies
+    ></recommended-movies>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import MovieThumbnail from './MovieThumbnail.vue';
+import TrandingMovies from './TrandingMovies.vue';
+import RecommendedMovies from './RecommendedMovies.vue';
 
 export default {
-  name: 'Movisuggested_movieses',
-  components: { MovieThumbnail },
+  name: 'Movies',
+  components: { TrandingMovies, RecommendedMovies },
   data() {
     return {
       movies: '',
       active_movie: 0,
       suggested_movies: '',
-      api: '',
     };
   },
   methods: {
-    getMovies() {
+    getTrandingMovies() {
       const path = 'http://127.0.0.1:5000/movies';
       axios.get(path)
         .then((res) => {
           this.movies = res.data;
+          this.getSuggestionByMovie();
         })
         .catch((error) => {
           // eslint-disable-next-line
           console.log(error);
         });
     },
-    suggestions(id) {
-      this.active_movie = id;
+    /**
+     * $event = movie id
+     */
+    selectActiveMovie($event) {
+      this.active_movie = $event;
       this.getSuggestionByMovie();
     },
+    /**
+     * call backend api to get a list of suggested movies
+     * based on the this.active_move
+     */
     getSuggestionByMovie() {
       const path = `http://127.0.0.1:5000/movies/${this.active_movie}`;
       axios.get(path)
         .then((res) => {
-          // for (let i = 0; i < res.data.length(); i += 1) {
           this.suggested_movies = res.data;
           this.getMovieData();
         })
@@ -88,6 +64,9 @@ export default {
           console.log(error);
         });
     },
+    /**
+     * call external api to get movie info a poster url by name
+     */
     getMovieData() {
       const data = this.suggested_movies;
       const keys = Object.keys(data);
@@ -122,8 +101,7 @@ export default {
     },
   },
   created() {
-    this.getMovies();
-    this.getSuggestionByMovie();
+    this.getTrandingMovies();
   },
 };
 </script>

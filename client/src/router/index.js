@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Movies from '../components/Movies.vue';
+import MoviesPage from '../pages/main-page/MoviesPage.vue';
 
 Vue.use(VueRouter);
 
@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'movies',
-    component: Movies,
+    component: MoviesPage,
   },
 ];
 
