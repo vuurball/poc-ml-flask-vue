@@ -13,6 +13,8 @@
         :movieName="n.name"
         :movieYear="n.year"
         :moviePoster="n.poster"
+        class="recommended-section"
+        :showTitle=true
       ></movie-thumbnail>
     </div>
   </div>
@@ -32,7 +34,7 @@ export default {
 <style scoped>
 .ff-header h1 {
     color: rgb(255, 255, 255);
-    font-size: 50px;
+    font-size: 44px;
     text-align: center;
     font-weight: normal;
     margin: 20px 20px 12px !important;

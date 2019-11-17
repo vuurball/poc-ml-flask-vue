@@ -1,6 +1,6 @@
 <template>
   <div class="row align-items-center justify-content-center bg-light">
-    <div class="container">
+    <div class="mx-4">
       <p style="text-align: center;">
         <span class="text-highlight">
           <strong>
@@ -14,51 +14,36 @@
           </strong>
         </span>
       </p>
-      <div style="margin:10px 100px;">
-        <span v-for="(name,i) in movies" :key="i.id" @click="$emit('movie-selected', i)">
-          <span class="pill" :class="[i == active_movie ? 'is-selected' : '']">
-            {{name}}
-          </span>
-        </span>
+      <div class="row align-items-center justify-content-center ">
+        <movie-thumbnail
+          v-for="(n,i) in movies"
+          :key="i"
+          :movieName="n.name"
+          :movieYear="n.year"
+          :moviePoster="n.poster"
+          :movieId="i"
+          class="trending-section"
+          :class="[i == active_movie ? 'is-selected' : '']"
+          :showTitle=false
+          ></movie-thumbnail>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import MovieThumbnail from './MovieThumbnail.vue';
+
 export default {
   name: 'TrandingMoviesSection',
+  components: { MovieThumbnail },
   props: ['movies', 'active_movie'],
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .pill {
-    border: 1px solid #ddd;
-    border-color: #9a5e9a;
-    font-size: 16px;
-    font-weight: 400;
-    color: #9A5E9A;
-    vertical-align: baseline;
-    cursor: pointer;
-    margin-right: 12px;
-    margin-bottom: 12px;
-    float: none;
-    display: inline-block;
-    margin: 0 5px 5px 0;
-    padding: .2em 1em;
-    font-family: "Montserrat";
-    box-sizing: border-box;
-    text-align: center;
-    border-radius: 0;
-  }
-
-  .is-selected {
-    background: #9a5e9a;
-    color: #fff;
-  }
-
   .text-highlight {
     text-align: center;
     background-image: url('https://social-streams.com/wp-content/themes/Total/assets/images/highlight-left.png'),

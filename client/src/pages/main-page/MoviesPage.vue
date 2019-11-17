@@ -34,6 +34,7 @@ export default {
       axios.get(path)
         .then((res) => {
           this.movies = res.data;
+          this.getTradingMovieData();
           this.getSuggestionByMovie();
         })
         .catch((error) => {
@@ -98,6 +99,38 @@ export default {
         }
       }
       this.suggested_movies = fullMoviesData;
+    },
+    getTradingMovieData() {
+      const data = this.movies;
+      const values = Object.values(data);
+      const fullMoviesData = [];
+      for (let i = 0; i <= values.length; i += 1) {
+        if (Object.prototype.hasOwnProperty.call(values, i)) {
+          axios.get(`http://www.omdbapi.com/?apikey=6362656e&s=${values[i]}`)
+            .then((success) => {
+              const arr = success.data.Search;
+              let row = [];
+              let row1 = [];
+              let url = '#';
+              let date = 'Unknown';
+              [row, row1, row1, row1, row1] = arr;
+              if (row.Poster === 'N/A') {
+                url = 'https://static-vectorplace-com.ams3.digitaloceanspaces.com/uploads/works/72680/preview_72680.jpg';
+              } else {
+                url = row.Poster;
+              }
+              date = row.Year;
+              row = row1;
+              fullMoviesData.push({
+                name: values[i],
+                poster: url,
+                year: date,
+                id: i,
+              });
+            });
+        }
+      }
+      this.movies = fullMoviesData;
     },
   },
   created() {

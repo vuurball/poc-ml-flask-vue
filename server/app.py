@@ -29,7 +29,7 @@ def index():
         for row in movies:
             if id != -1:
                 movies_json[id] = row[1]
-            if id > 10:
+            if id > 8:
                 break    
             id += 1
         
