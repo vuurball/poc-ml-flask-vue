@@ -16,7 +16,7 @@
           </span>
         </p>
         <div style="margin:10px 100px;">
-           <span :id=i v-for="(n,i) in movies" :key="i.id" @click="suggestions($event)">
+          <span v-for="(n,i) in movies" :key="i.id" @click="suggestions(i)">
             <span class="pill" :class="[i == active_movie ? 'is-selected' : '']">
               {{n}}
             </span>
@@ -68,8 +68,8 @@ export default {
           console.log(error);
         });
     },
-    suggestions(event) {
-      this.active_movie = event.currentTarget.id;
+    suggestions(id) {
+      this.active_movie = id;
       this.getSuggestionByMovie();
     },
     getSuggestionByMovie() {
@@ -92,7 +92,7 @@ export default {
       const fullMoviesData = [];
       for (let i = 0; i <= keys.length; i += 1) {
         if (Object.prototype.hasOwnProperty.call(values, i)) {
-          axios.get(`http://www.omdbapi.com/?apikey=12345&s=${values[i].name}`)
+          axios.get(`http://www.omdbapi.com/?apikey=6362656e&s=${values[i].name}`)
             .then((success) => {
               const arr = success.data.Search;
               let row = [];
