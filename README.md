@@ -9,6 +9,8 @@
 > mkdir server
 > cd server
 > python -m venv env
+> pip install Flask
+> pip install flask_cors, ..., ...
 ```
 
 **project init/server run:**
